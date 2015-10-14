@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Random Thoughts</title>
+
+    <style>
+      ul li {
+        padding: 10px 20px;
+      }
+      td {
+        padding: 5px;
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav>
+      <a href="#">Home</a>&nbsp;&nbsp;
+    </nav>
+
+    <h1>Random Thoughts from a Public Utility Worker</h1>
+
+    <figure>
+      <img src="Splash.png" title="A picture of some water here" />
+      <figcaption>Here's a random image of some water!</figcaption>
+    </figure>
+
+    <br />
+    <article>
+      <h2>Daily Randomness</h2>
+      <ul>
+
+        <li>
+          Seattle Public Utilities is not waterproof.
+        </li>
+
+        <li>
+          Is everything just ducky here?
+        </li>
+
+        <li>
+          Many of my coworkers act like they've been struck by lightning.
+        </li>
+
+        <li>
+            I'm submitting an application for a new position at work, but the submittal webpage didn't let me
+            list Ancient Greek and Ancient Hebrew as job skills.
+        </li>
+
+        <li>
+          Have I used 15 tags yet?
+        </li>
+
+        <li>
+          Here's some funky code i wrote for part of an x86 emulator personal project a few years ago:
+          <br />
+          <table>
+            <tr>
+              <td>
+                <code>
+                  public void opAdd() {<br />
+                  <!-- I'm sure there's got to be an easier way to indent lines... -->
+                  &nbsp;&nbsp;&nbsp;uint signbit = 0x8000; uint carrybit = 0x10000; uint mask = 0xFFFF;<br />
+                  &nbsp;&nbsp;&nbsp;switch (this.bytesize) {<br />
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case 1: signbit = 0x0080; carrybit = 0x0100; mask = 0x00FF; break;<br />
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case 2: break;         // Do nothing<br />
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case 4: break;         // TODO: Not supported yet<br />
+                  &nbsp;&nbsp;&nbsp;}<br />
+                  &nbsp;&nbsp;&nbsp;this.result = (uint)(this.operand1 + this.operand2 + (this.fCarry ? 1 : 0));        // Add with Carry<br />
+                  &nbsp;&nbsp;&nbsp;this.fZero = ((result & mask) == 0);               // Set Zero-result flag<br />
+                  &nbsp;&nbsp;&nbsp;this.fParity = m_afParity[result & 0x00FF];        // Parity (which is for low-byte only) uses a lookuptable for speed<br />
+                  &nbsp;&nbsp;&nbsp;this.fSign = ((result & signbit) != 0);            // Sign/high bit set?<br />
+                  &nbsp;&nbsp;&nbsp;this.fCarry = ((result & carrybit) != 0);          // An unsigned overflow?  Carry bit (High bit + 1) set?<br />
+                  &nbsp;&nbsp;&nbsp;this.fAuxiliaryCarry = ((operand1 & 0x0010) != (result & 0x0010));    // Used for BCD operations<br />
+                  <br />
+                  &nbsp;&nbsp;&nbsp;// Signed overflow is a little more complicated:<br />
+                  &nbsp;&nbsp;&nbsp;// Referring to this article: http://en.wikipedia.org/wiki/Overflow_flag :<br />
+                  &nbsp;&nbsp;&nbsp;//    "The overflow flag is set when the most significant bit (here considered the sign bit) is changed by adding<br />
+                  &nbsp;&nbsp;&nbsp;//     two numbers with the same sign (or subtracting two numbers with opposite signs). Overflow never occurs when<br />
+                  &nbsp;&nbsp;&nbsp;//     the sign of two addition operands are different (or the sign of two subtraction operands are the same)."<br />
+                  &nbsp;&nbsp;&nbsp;// Thus we should get the following truth table:<br />
+                  &nbsp;&nbsp;&nbsp;// (Sign/High Bit)<br />
+                  &nbsp;&nbsp;&nbsp;// Operand 1:   T   T   T   T   F   F   F   F<br />
+                  &nbsp;&nbsp;&nbsp;// Operand 2:   T   T   F   F   T   T   F   F<br />
+                  &nbsp;&nbsp;&nbsp;// Result:      T   F   T   F   T   F   T   F<br />
+                  &nbsp;&nbsp;&nbsp;//              ------------------------------<br />
+                  &nbsp;&nbsp;&nbsp;// Overflow:    F   T   F   F   F   F   T   F<br />
+                  &nbsp;&nbsp;&nbsp;// // Using logical operators:  Operand1 = Operand2 and Result != Operand1<br />
+                  &nbsp;&nbsp;&nbsp;// this.fOverflow = (operand1 & 0x0080) == (operand2 & 0x0080) && (result & 0x0080) != (operand1 & 0x0080);<br />
+                  &nbsp;&nbsp;&nbsp;// Or using bitwise operators:  Operand1 XOR !Operand2 AND Result XOR Operand1<br />
+                  &nbsp;&nbsp;&nbsp;this.fOverflow = (((operand1 ^ (~operand2)) & (operand1 ^ result)) & signbit) != 0;<br />
+                  <br />
+                  &nbsp;&nbsp;&nbsp;this.result &= mask;                                // Truncate result to requested #of bits.<br />
+                  }<br />
+                </code>
+              </td>
+            </tr>
+          </table>
+        </li>
+
+      </ul>
+    </article>
+
+    <br /><br />
+    <footer>
+      <p><i>Copyleft The Mad Hungarian</i></p>
+      <nav>
+        <a href="http://www.seattle.gov/util/">Seattle Public Utilities Website</a>&nbsp;&nbsp;
+        <a href="http://www.nud.net/">Northshore Utility District Website</a>&nbsp;&nbsp;
+        <a href="http://www.bar.com">Meet the ancient Foo @ Bar.com</a>
+      </nav>
+    </footer>
+
+  </body>
+
+</html>
